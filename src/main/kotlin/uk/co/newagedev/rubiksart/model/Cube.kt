@@ -4,53 +4,25 @@ package uk.co.newagedev.rubiksart.model
  * For simplicity the cube is represented always from the face with white as Up, Red as the front face
  */
 
+typealias Face = List<Colour>
+
 class Cube private constructor(
-    val up: List<Colour>,
-    val down: List<Colour>,
-    val front: List<Colour>,
-    val left: List<Colour>,
-    val right: List<Colour>,
-    val back: List<Colour>,
+    val up: Face,
+    val down: Face,
+    val front: Face,
+    val left: Face,
+    val right: Face,
+    val back: Face,
 ) {
 
     fun move(move: Move): Cube {
         return when (move) {
-            Move.UP -> rotateFace(Face.UP, clockwise = true, amount = 1)
-            Move.UP_2 -> rotateFace(Face.UP, clockwise = true, amount = 2)
-            Move.UP_PRIME -> rotateFace(Face.UP, clockwise = false, amount = 1)
-
-            Move.LEFT -> rotateFace(Face.LEFT, clockwise = true, amount = 1)
-            Move.LEFT_2 -> rotateFace(Face.LEFT, clockwise = true, amount = 2)
-            Move.LEFT_PRIME -> rotateFace(Face.LEFT, clockwise = false, amount = 1)
-
-            Move.BACK -> rotateFace(Face.BACK, clockwise = true, amount = 1)
-            Move.BACK_2 -> rotateFace(Face.BACK, clockwise = true, amount = 2)
-            Move.BACK_PRIME -> rotateFace(Face.BACK, clockwise = false, amount = 1)
-
-            Move.FRONT -> rotateFace(Face.FRONT, clockwise = true, amount = 1)
-            Move.FRONT_2 -> rotateFace(Face.FRONT, clockwise = true, amount = 2)
-            Move.FRONT_PRIME -> rotateFace(Face.FRONT, clockwise = false, amount = 1)
-
-            Move.RIGHT -> rotateFace(Face.RIGHT, clockwise = true, amount = 1)
-            Move.RIGHT_2 -> rotateFace(Face.RIGHT, clockwise = true, amount = 2)
-            Move.RIGHT_PRIME -> rotateFace(Face.RIGHT, clockwise = false, amount = 1)
-
-            Move.DOWN -> rotateFace(Face.DOWN, clockwise = true, amount = 1)
-            Move.DOWN_2 -> rotateFace(Face.DOWN, clockwise = true, amount = 2)
-            Move.DOWN_PRIME -> rotateFace(Face.DOWN, clockwise = false, amount = 1)
-        }
-    }
-
-    private fun rotateFace(around: Face, clockwise: Boolean, amount: Int): Cube {
-        val normalisedAmount = if (clockwise) amount else 4 - amount
-
-        return when (around) {
-            Face.UP -> rotateAroundUp(normalisedAmount)
-            Face.RIGHT -> rotateAroundRight(normalisedAmount)
-            Face.LEFT -> rotateAroundLeft(normalisedAmount)
-            Face.BACK -> rotateAroundBack(normalisedAmount)
-            Face.FRONT -> rotateAroundFront(normalisedAmount)
-            Face.DOWN -> rotateAroundDown(normalisedAmount)
+            Move.UP, Move.UP_2, Move.UP_PRIME -> rotateAroundUp(move.moveCount())
+            Move.RIGHT, Move.RIGHT_2, Move.RIGHT_PRIME -> rotateAroundRight(move.moveCount())
+            Move.LEFT, Move.LEFT_2, Move.LEFT_PRIME -> rotateAroundLeft(move.moveCount())
+            Move.BACK, Move.BACK_2, Move.BACK_PRIME -> rotateAroundBack(move.moveCount())
+            Move.FRONT, Move.FRONT_2, Move.FRONT_PRIME -> rotateAroundFront(move.moveCount())
+            Move.DOWN, Move.DOWN_2, Move.DOWN_PRIME -> rotateAroundDown(move.moveCount())
         }
     }
 
@@ -266,7 +238,7 @@ class Cube private constructor(
         )
     }
 
-    private fun rotateList(list: List<Colour>, amount: Int): List<Colour> {
+    private fun rotateList(list: Face, amount: Int): Face {
         val evenRot = listOf(6, 8, 2, 0)
         val oddRot = listOf(3, 7, 5, 1)
 

@@ -52,4 +52,12 @@ enum class Move {
             DOWN_PRIME -> "D'"
         }
     }
+
+    fun moveCount(): Int {
+        return when (this) {
+            UP, LEFT, RIGHT, DOWN, BACK, FRONT -> 1
+            UP_2, LEFT_2, RIGHT_2, DOWN_2, BACK_2, FRONT_2 -> 2
+            UP_PRIME, LEFT_PRIME, RIGHT_PRIME, DOWN_PRIME, BACK_PRIME, FRONT_PRIME -> 3
+        }
+    }
 }
