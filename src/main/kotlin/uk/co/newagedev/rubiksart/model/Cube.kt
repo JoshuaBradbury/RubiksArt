@@ -29,7 +29,7 @@ class Cube private constructor(
     private fun rotateAroundUp(amount: Int): Cube {
         val faces = listOf(right, back, left, front).map { it.subList(0, 3) }
         return Cube(
-            rotateList(up, amount),
+            rotateFace(up, amount),
             down,
             faces[(3 + amount) % 4] + front.subList(3, 9),
             faces[(2 + amount) % 4] + left.subList(3, 9),
@@ -42,7 +42,7 @@ class Cube private constructor(
         val faces = listOf(front, left, back, right).map { it.subList(6, 9) }
         return Cube(
             up,
-            rotateList(down, amount),
+            rotateFace(down, amount),
             front.subList(0, 6) + faces[(0 + amount) % 4],
             left.subList(0, 6) + faces[(1 + amount) % 4],
             right.subList(0, 6) + faces[(3 + amount) % 4],
@@ -83,7 +83,7 @@ class Cube private constructor(
                 right[7],
                 faces[(1 + amount) % 4][2],
             ),
-            rotateList(back, amount),
+            rotateFace(back, amount),
         )
     }
 
@@ -97,7 +97,7 @@ class Cube private constructor(
         return Cube(
             up.subList(0, 6) + faces[(3 + amount) % 4],
             faces[(1 + amount) % 4] + down.subList(3, 9),
-            rotateList(front, amount),
+            rotateFace(front, amount),
             listOf(
                 left[0],
                 left[1],
@@ -165,7 +165,7 @@ class Cube private constructor(
                 front[7],
                 front[8],
             ),
-            rotateList(left, amount),
+            rotateFace(left, amount),
             right,
             listOf(
                 back[0],
@@ -223,7 +223,7 @@ class Cube private constructor(
                 faces[(0 + amount) % 4][2],
             ),
             left,
-            rotateList(right, amount),
+            rotateFace(right, amount),
             listOf(
                 faces[(2 + amount) % 4][2],
                 back[1],
@@ -238,7 +238,7 @@ class Cube private constructor(
         )
     }
 
-    private fun rotateList(list: Face, amount: Int): Face {
+    private fun rotateFace(list: Face, amount: Int): Face {
         val evenRot = listOf(6, 8, 2, 0)
         val oddRot = listOf(3, 7, 5, 1)
 
@@ -253,6 +253,30 @@ class Cube private constructor(
             list[oddRot[(1 + amount) % 4]],
             list[evenRot[(1 + amount) % 4]],
         )
+    }
+
+    fun getFaceHeuristic(face: Face): Int {
+        if (face.size != 9) return Integer.MIN_VALUE
+
+        val faceToCheck = when (face[4]) {
+            Colour.YELLOW -> down
+            Colour.WHITE -> up
+            Colour.GREEN -> left
+            Colour.BLUE -> right
+            Colour.ORANGE -> back
+            Colour.RED -> front
+        }
+
+        return maxOf(
+            getFaceDistance(face, faceToCheck),
+            getFaceDistance(rotateFace(face, 1), faceToCheck),
+            getFaceDistance(rotateFace(face, 2), faceToCheck),
+            getFaceDistance(rotateFace(face, 3), faceToCheck),
+        )
+    }
+
+    private fun getFaceDistance(face: Face, faceToCheck: Face): Int {
+        return face.mapIndexed { index, colour -> if (faceToCheck[index] == colour) 1 else 0 }.sum()
     }
 
     fun print() {
