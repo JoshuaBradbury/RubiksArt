@@ -5,6 +5,10 @@ import uk.co.newagedev.rubiksart.model.Cube
 import uk.co.newagedev.rubiksart.model.Move
 
 fun main() {
+    Cube.new().move(Move.LEFT_2)
+        .move(Move.UP_2)
+        .print()
+
     val cube = Cube.new()
         .move(Move.RIGHT_2)
         .move(Move.LEFT_2)
@@ -17,7 +21,7 @@ fun main() {
 
     cube.print()
 
-    print(
+    println(
         cube.getFaceHeuristic(
             listOf(
                 Colour.YELLOW,
@@ -32,4 +36,8 @@ fun main() {
             )
         )
     )
+
+    val (moves, scrambledCube) = Cube.scrambled()
+    println(moves)
+    scrambledCube.print()
 }

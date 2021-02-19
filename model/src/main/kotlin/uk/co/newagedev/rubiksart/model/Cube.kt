@@ -1,12 +1,14 @@
 package uk.co.newagedev.rubiksart.model
 
 /**
- * For simplicity the cube is represented always from the face with white as Up, Red as the front face
+ * For simplicity the cube is represented always from the face with white as Up, Red as the front face.
+ *
+ * The faces are row major when looking at the face
  */
 
 typealias Face = List<Colour>
 
-class Cube private constructor(
+class Cube internal constructor(
     val up: Face,
     val down: Face,
     val front: Face,
@@ -52,23 +54,23 @@ class Cube private constructor(
 
     private fun rotateAroundBack(amount: Int): Cube {
         val faces = listOf(
-            listOf(up[2], up[1], up[0]),
+            up.subList(0, 3),
             listOf(right[2], right[5], right[8]),
             listOf(down[8], down[7], down[6]),
-            listOf(left[0], left[3], left[6]),
+            listOf(left[6], left[3], left[0]),
         )
         return Cube(
             faces[(0 + amount) % 4] + up.subList(3, 9),
-            down.subList(0, 6) + faces[(2 + amount) % 4],
+            down.subList(0, 6) + faces[(2 + amount) % 4].reversed(),
             front,
             listOf(
-                faces[(3 + amount) % 4][0],
+                faces[(3 + amount) % 4][2],
                 left[1],
                 left[2],
                 faces[(3 + amount) % 4][1],
                 left[4],
                 left[5],
-                faces[(3 + amount) % 4][2],
+                faces[(3 + amount) % 4][0],
                 left[7],
                 left[8],
             ),
@@ -89,25 +91,25 @@ class Cube private constructor(
 
     private fun rotateAroundFront(amount: Int): Cube {
         val faces = listOf(
-            listOf(left[2], left[5], left[8]),
-            down.subList(0, 3),
+            listOf(left[8], left[5], left[2]),
+            listOf(down[2], down[1], down[0]),
             listOf(right[0], right[3], right[6]),
             up.subList(6, 9),
         )
         return Cube(
             up.subList(0, 6) + faces[(3 + amount) % 4],
-            faces[(1 + amount) % 4] + down.subList(3, 9),
+            faces[(1 + amount) % 4].reversed() + down.subList(3, 9),
             rotateFace(front, amount),
             listOf(
                 left[0],
                 left[1],
-                faces[(0 + amount) % 4][0],
+                faces[(0 + amount) % 4][2],
                 left[3],
                 left[4],
                 faces[(0 + amount) % 4][1],
                 left[6],
                 left[7],
-                faces[(0 + amount) % 4][2],
+                faces[(0 + amount) % 4][0],
             ),
             listOf(
                 faces[(2 + amount) % 4][0],
@@ -314,6 +316,28 @@ class Cube private constructor(
                 right = List(9) { Colour.BLUE },
                 back = List(9) { Colour.ORANGE },
             )
+        }
+
+        fun scrambled(): Pair<List<Move>, Cube> {
+            var cube = new()
+
+            var lastMove: Move? = null
+            val moves = List(20) {
+                val move = if (lastMove != null) {
+                    Move.randomNext(lastMove!!)
+                } else {
+                    Move.values().random()
+                }
+
+                lastMove = move
+                move
+            }
+
+            for (move in moves) {
+                cube = cube.move(move)
+            }
+
+            return moves to cube
         }
     }
 }
