@@ -62,7 +62,7 @@ enum class Move {
     }
 
     companion object {
-        fun randomNext(lastMove: Move): Move {
+        fun possibleNext(lastMove: Move): List<Move> {
             return when (lastMove) {
                 DOWN, DOWN_2, DOWN_PRIME, UP, UP_2, UP_PRIME -> listOf(
                     LEFT,
@@ -77,7 +77,7 @@ enum class Move {
                     FRONT,
                     FRONT_2,
                     FRONT_PRIME
-                ).random()
+                )
                 LEFT, LEFT_2, LEFT_PRIME, RIGHT, RIGHT_2, RIGHT_PRIME -> listOf(
                     DOWN,
                     DOWN_2,
@@ -91,7 +91,7 @@ enum class Move {
                     FRONT,
                     FRONT_2,
                     FRONT_PRIME
-                ).random()
+                )
                 FRONT, FRONT_2, FRONT_PRIME, BACK, BACK_2, BACK_PRIME -> listOf(
                     LEFT,
                     LEFT_2,
@@ -105,8 +105,12 @@ enum class Move {
                     UP,
                     UP_2,
                     UP_PRIME
-                ).random()
+                )
             }
+        }
+
+        fun randomNext(lastMove: Move): Move {
+            return possibleNext(lastMove).random()
         }
     }
 }

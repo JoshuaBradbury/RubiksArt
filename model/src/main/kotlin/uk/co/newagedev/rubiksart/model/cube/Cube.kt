@@ -6,8 +6,6 @@ package uk.co.newagedev.rubiksart.model.cube
  * The faces are row major when looking at the face
  */
 
-typealias Face = List<Colour>
-
 class Cube internal constructor(
     val up: Face,
     val down: Face,

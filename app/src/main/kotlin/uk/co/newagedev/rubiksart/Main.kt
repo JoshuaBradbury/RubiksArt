@@ -1,43 +1,16 @@
 package uk.co.newagedev.rubiksart
 
 import uk.co.newagedev.rubiksart.model.cube.Colour
-import uk.co.newagedev.rubiksart.model.cube.Cube
-import uk.co.newagedev.rubiksart.model.cube.Move
+import uk.co.newagedev.rubiksart.model.solver.FaceSolver.solveForFace
 
 fun main() {
-    Cube.new().move(Move.LEFT_2)
-        .move(Move.UP_2)
-        .print()
-
-    val cube = Cube.new()
-        .move(Move.RIGHT_2)
-        .move(Move.LEFT_2)
-        .move(Move.UP_2)
-        .move(Move.RIGHT_2)
-        .move(Move.LEFT_2)
-        .move(Move.DOWN_2)
-        .move(Move.LEFT_2)
-        .move(Move.RIGHT_2)
-
-    cube.print()
-
     println(
-        cube.getFaceHeuristic(
+        solveForFace(
             listOf(
-                Colour.YELLOW,
-                Colour.YELLOW,
-                Colour.YELLOW,
-                Colour.WHITE,
-                Colour.WHITE,
-                Colour.WHITE,
-                Colour.YELLOW,
-                Colour.YELLOW,
-                Colour.YELLOW,
+                Colour.WHITE, Colour.WHITE, Colour.WHITE,
+                Colour.BLUE, Colour.WHITE, Colour.BLUE,
+                Colour.BLUE, Colour.WHITE, Colour.BLUE,
             )
         )
     )
-
-    val (moves, scrambledCube) = Cube.scrambled()
-    println(moves)
-    scrambledCube.print()
 }
