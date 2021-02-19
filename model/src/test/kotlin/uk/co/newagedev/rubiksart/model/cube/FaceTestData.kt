@@ -1,4 +1,4 @@
-package uk.co.newagedev.rubiksart.model
+package uk.co.newagedev.rubiksart.model.cube
 
 object FaceTestData {
     fun getAlphaTestFace(): List<Colour> {

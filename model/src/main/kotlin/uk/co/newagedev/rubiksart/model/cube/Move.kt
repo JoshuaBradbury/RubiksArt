@@ -1,4 +1,4 @@
-package uk.co.newagedev.rubiksart.model
+package uk.co.newagedev.rubiksart.model.cube
 
 enum class Move {
     UP,

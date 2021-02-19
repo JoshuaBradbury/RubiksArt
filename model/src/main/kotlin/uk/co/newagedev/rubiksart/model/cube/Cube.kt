@@ -1,4 +1,4 @@
-package uk.co.newagedev.rubiksart.model
+package uk.co.newagedev.rubiksart.model.cube
 
 /**
  * For simplicity the cube is represented always from the face with white as Up, Red as the front face.

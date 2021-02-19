@@ -1,18 +1,18 @@
-package uk.co.newagedev.rubiksart.model
+package uk.co.newagedev.rubiksart.model.cube
 
 import org.amshove.kluent.shouldBeEqualTo
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import uk.co.newagedev.rubiksart.model.FaceTestData.getAlphaTestFace
-import uk.co.newagedev.rubiksart.model.FaceTestData.getBetaTestFace
-import uk.co.newagedev.rubiksart.model.FaceTestData.getRotatedOnceBetaTestFace
-import uk.co.newagedev.rubiksart.model.FaceTestData.getRotatedThriceBetaTestFace
-import uk.co.newagedev.rubiksart.model.FaceTestData.getRotatedTwiceBetaTestFace
-import uk.co.newagedev.rubiksart.model.FaceTestData.getTestCube
-import uk.co.newagedev.rubiksart.model.FaceTestData.modifyBottom
-import uk.co.newagedev.rubiksart.model.FaceTestData.modifyLeft
-import uk.co.newagedev.rubiksart.model.FaceTestData.modifyRight
-import uk.co.newagedev.rubiksart.model.FaceTestData.modifyTop
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.getAlphaTestFace
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.getBetaTestFace
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.getRotatedOnceBetaTestFace
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.getRotatedThriceBetaTestFace
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.getRotatedTwiceBetaTestFace
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.getTestCube
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.modifyBottom
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.modifyLeft
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.modifyRight
+import uk.co.newagedev.rubiksart.model.cube.FaceTestData.modifyTop
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class FrontMoveTests {

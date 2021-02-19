@@ -1,8 +1,8 @@
 package uk.co.newagedev.rubiksart
 
-import uk.co.newagedev.rubiksart.model.Colour
-import uk.co.newagedev.rubiksart.model.Cube
-import uk.co.newagedev.rubiksart.model.Move
+import uk.co.newagedev.rubiksart.model.cube.Colour
+import uk.co.newagedev.rubiksart.model.cube.Cube
+import uk.co.newagedev.rubiksart.model.cube.Move
 
 fun main() {
     Cube.new().move(Move.LEFT_2)
