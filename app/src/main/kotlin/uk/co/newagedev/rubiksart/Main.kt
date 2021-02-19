@@ -1,16 +1,9 @@
 package uk.co.newagedev.rubiksart
 
-import uk.co.newagedev.rubiksart.model.cube.Colour
-import uk.co.newagedev.rubiksart.model.solver.FaceSolver.solveForFace
+import uk.co.newagedev.rubiksart.model.art.Art.getCubesFromImage
 
 fun main() {
-    println(
-        solveForFace(
-            listOf(
-                Colour.WHITE, Colour.WHITE, Colour.WHITE,
-                Colour.BLUE, Colour.WHITE, Colour.BLUE,
-                Colour.BLUE, Colour.WHITE, Colour.BLUE,
-            )
-        )
-    )
+    getCubesFromImage("examples/mario/question_block.png", 6).windowed(6, 6).map {
+        println(it)
+    }
 }
